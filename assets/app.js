@@ -32,3 +32,5 @@ document.addEventListener("wheel", (e) => {
     el.dispatchEvent(new InputEvent("input", { bubbles: true }));
   }
 });
+
+hljs.highlightAll();

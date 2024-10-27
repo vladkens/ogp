@@ -12,7 +12,7 @@ use serde_variant::to_variant_name;
 use crate::{
   render::{OGImage, OGTheme},
   server::{AppError, Res},
-  utils::{safe_id, str_or_val},
+  utils::{load_md, safe_id, str_or_val},
 };
 
 static PUBLIC_URL: Lazy<String> = Lazy::new(|| {
@@ -49,6 +49,9 @@ fn base(title: &str, node: Markup) -> Markup {
         link rel="preconnect" href="https://unpkg.com" {}
         link rel="preconnect" href="https://fonts.googleapis.com" {}
         link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true" {}
+        link rel="preconnect" href="https://cloud.umami.is" {}
+
+        script defer src="https://cloud.umami.is/script.js" data-website-id="185ce86b-a0f1-42a6-83ea-d9e0e502c9d6" {}
 
         link rel="stylesheet" href="https://unpkg.com/normalize.css" media="screen" {}
         link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" media="screen" {}
@@ -57,6 +60,9 @@ fn base(title: &str, node: Markup) -> Markup {
         link rel="stylesheet" href="/assets/app.css" {}
         script src="https://unpkg.com/htmx.org@2.0" {}
         script src="https://unpkg.com/@twind/cdn" {}
+
+        link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/styles/default.min.css" {}
+        script defer src="https://unpkg.com/@highlightjs/cdn-assets@11.9.0/highlight.min.js" {}
 
         meta name="description" content=(og_descr) {}
         meta property="og:url" content=(PreEscaped(PUBLIC_URL.as_str())) {}
@@ -203,6 +209,9 @@ pub async fn index() -> Res<impl IntoResponse> {
 
   let public_url = format!("{}/v0/png?{}", PUBLIC_URL.as_str(), tokens);
 
+  // let raw = include_str!("../content/seo.md");
+  // let doc = load_md(raw);
+
   let html = html! {
     hgroup class="text-center mb-5" {
       h2 class="mt-5 mb-2 flex items-center justify-center gap-5" {
@@ -235,8 +244,7 @@ pub async fn index() -> Res<impl IntoResponse> {
       "<meta property=\"og:image\" content=\"" (PreEscaped(public_url)) "\" />"
     }
 
-    // h4 class="text-center" { "What is OG?" }
-    // p { "The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook." }
+    // (doc)
   };
 
   Ok(base("OpenGraph Image Generator", html))

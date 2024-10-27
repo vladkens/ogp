@@ -22,3 +22,11 @@ pub fn str_or_val(s: &str, default: &str) -> String {
     _ => s.trim().to_string(),
   }
 }
+
+pub fn load_md(data: &str) -> maud::Markup {
+  use pulldown_cmark::{html, Parser};
+  let mut unsafe_html = String::new();
+  let parser = Parser::new(data);
+  html::push_html(&mut unsafe_html, parser);
+  maud::PreEscaped(unsafe_html)
+}

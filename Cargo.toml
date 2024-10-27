@@ -13,6 +13,7 @@ maud = { version = "0.26.0", features = ["axum"] }
 mime_guess = "2.0.5"
 nanoid = "0.4.0"
 once_cell = "1.20.2"
+pulldown-cmark = "0.12.2"
 reqwest = { version = "0.12.8", features = ["json", "rustls-tls"], default-features = false }
 resvg = "0.44.0"
 rust-embed = { version = "8.5.0", features = ["axum"] }
