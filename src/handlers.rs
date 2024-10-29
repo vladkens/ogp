@@ -12,7 +12,7 @@ use serde_variant::to_variant_name;
 use crate::{
   render::{OGImage, OGTheme},
   server::{AppError, Res},
-  utils::{load_md, safe_id, str_or_val},
+  utils::{safe_id, str_or_val},
 };
 
 static PUBLIC_URL: Lazy<String> = Lazy::new(|| {
