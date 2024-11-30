@@ -104,11 +104,7 @@ impl OGImage {
     let l2_y = pic_y - (pic_r - 10) / 2 + 32 / 2 + 6;
 
     html!(svg xmlns="http://www.w3.org/2000/svg" viewBox=(format!("0 0 {} {}", w, h)) width=(w) height=(h) {
-      style { (
-        r#"
-          text { font-family: 'Open Sans', Arial, sans-serif; }
-        "#.trim())
-      }
+      style { ("text { font-family: 'Open Sans', Arial, sans-serif; }") }
 
       rect x="0" y="0" width=(w) height=(h) fill=(self.c().background) stroke=(self.c().title) stroke-width="16" {}
       (self.multiline_text(&self.title, 128 - 50/2, 128, 72))

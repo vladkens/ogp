@@ -52,6 +52,7 @@ fn base(title: &str, node: Markup) -> Markup {
         link rel="preconnect" href="https://cloud.umami.is" {}
 
         script defer src="https://cloud.umami.is/script.js" data-website-id="185ce86b-a0f1-42a6-83ea-d9e0e502c9d6" {}
+        script async defer src="https://buttons.github.io/buttons.js" {}
 
         link rel="stylesheet" href="https://unpkg.com/normalize.css" media="screen" {}
         link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" media="screen" {}
@@ -209,22 +210,18 @@ pub async fn index() -> Res<impl IntoResponse> {
 
   let public_url = format!("{}/v0/png?{}", PUBLIC_URL.as_str(), tokens);
 
-  // let raw = include_str!("../content/seo.md");
-  // let doc = load_md(raw);
-
   let html = html! {
-    hgroup class="text-center mb-5" {
-      h2 class="mt-5 mb-2 flex items-center justify-center gap-5" {
-        // img src="/assets/favicon.svg" class="w-16 h-16 mb-0" {}
-        "Open Graph Image Generator"
+    div class="flex justify-between items-center" {
+      div class="flex gap-5 items-center" {
+        img src="/assets/favicon.svg" class="w-16 h-16 mb-0" {}
+        div class="text-4xl font-bold" { "OGP Image Generator" }
       }
 
-      // div class="flex justify-center items-center gap-x-5" {
-      //   "Generate Open Graph images for your static pages"
-      //   a href="https://github.com/vladkens/ghstats" target="_blank" class="hover:border-none" {
-      //     img src="https://badgen.net/github/stars/vladkens/ghstats" class="m-0" {}
-      //   }
-      // }
+      div class="flex gap-5 items-center text-2xl" {
+        a href="https://github.com/vladkens/ogp" class="hover:border-none" { "View on GitHub" }
+        a href="https://github.com/vladkens/ogp" class="github-button" data-icon="octicon-star" data-show-count="true"
+        data-color-scheme="no-preference: light; light: light; dark: dark;" aria-label="Star on GitHub" { "Star" }
+      }
     }
 
     div class="flex-col flex md:flex-row gap-2" {
@@ -244,7 +241,21 @@ pub async fn index() -> Res<impl IntoResponse> {
       "<meta property=\"og:image\" content=\"" (PreEscaped(public_url)) "\" />"
     }
 
-    // (doc)
+    h4 class="text-center" { "FAQ" }
+    div class="faq" {
+      h5 { "What is OpenGraph?" }
+      p { "OpenGraph is a protocol that allows web pages to become rich objects in a social graph. It is used by social media platforms to display links with rich content." }
+      h5 { "How do I generate OpenGraph meta tags?" }
+      p { "You can use the OpenGraph Image Generator to create and preview OpenGraph meta tags. Fill out the form with your desired values and copy the generated meta tag into your HTML." }
+      h5 { "What image formats are supported?" }
+      p { "The supported image formats are JPEG, PNG, WEBP, and SVG." }
+      h5 { "What is the maximum image size?" }
+      p { "The maximum image size is 5MB." }
+      h5 { "Why are OpenGraph meta tags important?" }
+      p { "OpenGraph meta tags are important because they control how your content is displayed on social media platforms. Properly configured tags can increase engagement and click-through rates." }
+      h5 { "Can I use OpenGraph meta tags for X/Twitter?" }
+      p { "Yes, X supports OpenGraph meta tags. However, X also has its own set of meta tags called Twitter Cards. It's a good practice to include both OpenGraph and Twitter Card tags for optimal compatibility." }
+    }
   };
 
   Ok(base("OpenGraph Image Generator", html))
