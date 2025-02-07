@@ -1,7 +1,7 @@
 tag = ogp
 
 dev:
-	cargo watch -q -x 'run'
+	systemfd --no-pid -s http::8080 -- cargo watch -q -x run
 
 lint:
 	cargo fmt --check

@@ -6,6 +6,7 @@ use axum::{
   Router,
 };
 use rust_embed::Embed;
+use tokio::net::TcpListener;
 use tower_http::trace::{self, TraceLayer};
 use tracing::Level;
 
@@ -34,7 +35,7 @@ impl<E: Into<anyhow::Error>> From<E> for AppError {
 // MARK: Default handlers
 
 async fn health() -> impl IntoResponse {
-  let msg = serde_json::json!({ "status": "ok" });
+  let msg = serde_json::json!({ "status": "ok", "ver": env!("CARGO_PKG_VERSION") });
   (StatusCode::OK, axum::response::Json(msg))
 }
 
@@ -91,12 +92,16 @@ pub async fn run_server(addr: &str, app: Router) -> Result<()> {
         .on_response(trace::DefaultOnResponse::new().level(Level::INFO)),
     )
     .route("/health", get(health))
-    .route("/assets/*file", get(static_handler))
+    .route("/assets/{*file}", get(static_handler))
     .fallback_service(get(not_found));
 
-  let listener = tokio::net::TcpListener::bind(&addr).await?;
+  let mut listenfd = listenfd::ListenFd::from_env();
+  let listener = match listenfd.take_tcp_listener(0)? {
+    Some(listener) => TcpListener::from_std(listener),
+    None => TcpListener::bind(&addr).await,
+  }?;
+
   tracing::info!("listening on http://{}", addr);
   axum::serve(listener, app).with_graceful_shutdown(shutdown_signal()).await?;
-
   Ok(())
 }
