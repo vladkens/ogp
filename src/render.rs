@@ -1,5 +1,5 @@
-use enum_map::{enum_map, Enum, EnumMap};
-use maud::{html, Markup};
+use enum_map::{Enum, EnumMap, enum_map};
+use maud::{Markup, html};
 use once_cell::sync::Lazy;
 use serde::{Deserialize, Serialize};
 
@@ -53,12 +53,12 @@ impl OGImage {
       title: "Dynamic Open Graph Image Generator".to_string(),
       photo: "https://avatars.githubusercontent.com/u/825754".to_string(),
       author: "vladkens".to_string(),
-      url: "vnotes.pages.dev".to_string(),
+      url: "vladkens.cc".to_string(),
       theme: OGTheme::Default,
     }
   }
 
-  fn c(&self) -> &Colors {
+  fn c(&self) -> &Colors<'_> {
     &COLORS[self.theme.clone()]
   }
 

@@ -1,19 +1,15 @@
-use axum::{
-  extract::{Query, Request},
-  http::{header, HeaderMap, HeaderValue, StatusCode, Uri},
-  response::IntoResponse,
-};
+use axum::extract::{Query, Request};
+use axum::http::{HeaderMap, HeaderValue, StatusCode, Uri, header};
+use axum::response::IntoResponse;
 use base64::Engine;
 use enum_map::enum_map;
-use maud::{html, Markup, PreEscaped};
+use maud::{Markup, PreEscaped, html};
 use once_cell::sync::Lazy;
 use serde_variant::to_variant_name;
 
-use crate::{
-  render::{OGImage, OGTheme},
-  server::{AppError, Res},
-  utils::{safe_id, str_or_val},
-};
+use crate::render::{OGImage, OGTheme};
+use crate::server::{AppError, Res};
+use crate::utils::{safe_id, str_or_val};
 
 static PUBLIC_URL: Lazy<String> = Lazy::new(|| {
   return std::env::var("PUBLIC_URL").unwrap_or("http://localhost:8080".to_string());
@@ -137,7 +133,7 @@ async fn load_base64_image(url: &str) -> Res<String> {
   let mime = match rep.headers().get(header::CONTENT_TYPE) {
     None => return AppError::new("Content type is unknown"),
     Some(ct) if !allowed.contains(&ct.to_str().unwrap()) => {
-      return AppError::new(&format!("Content type is not allowed: {:?}", ct))
+      return AppError::new(&format!("Content type is not allowed: {:?}", ct));
     }
     Some(ct) => ct.to_str().unwrap().to_string(),
   };

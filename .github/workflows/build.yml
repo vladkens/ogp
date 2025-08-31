@@ -24,10 +24,13 @@ jobs:
             ~/.cargo/git/db/
             target/
 
-      - run: rustup update --no-self-update stable && rustup default stable
-      - run: cargo fmt --check
-      - run: cargo check --release --locked
-      - run: cargo test
+      - name: Install Rust toolchains
+        run: |
+          rustup update --no-self-update stable nightly
+          rustup default stable
+          rustup component add clippy rustfmt --toolchain nightly
+      - run: make lint
+      - run: make test
 
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3

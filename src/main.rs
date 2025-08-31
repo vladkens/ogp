@@ -1,4 +1,5 @@
-use axum::{routing::get, Router};
+use axum::Router;
+use axum::routing::get;
 use tracing_subscriber::filter::{EnvFilter, LevelFilter};
 
 mod handlers;

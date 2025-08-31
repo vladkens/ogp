@@ -3,9 +3,16 @@ tag = ogp
 dev:
 	systemfd --no-pid -s http::8080 -- cargo watch -q -x run
 
+fmt:
+	cargo +nightly fmt
+	cargo fix --allow-dirty --allow-staged
+
 lint:
-	cargo fmt --check
+	cargo +nightly fmt --check
 	cargo check --release --locked
+
+test:
+	cargo test
 
 update:
 	cargo upgrade -i

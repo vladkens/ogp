@@ -1,10 +1,8 @@
 use anyhow::Result;
-use axum::{
-  http::{header, StatusCode, Uri},
-  response::{IntoResponse, Json, Response},
-  routing::get,
-  Router,
-};
+use axum::Router;
+use axum::http::{StatusCode, Uri, header};
+use axum::response::{IntoResponse, Json, Response};
+use axum::routing::get;
 use rust_embed::Embed;
 use tokio::net::TcpListener;
 use tower_http::trace::{self, TraceLayer};

@@ -1,6 +1,13 @@
 # OG Image Generator
 
-OG Image Generator is a service designed to create [Open Graph](https://ogp.me/) images for your static pages. This project is inspired by [og-image-generator](https://github.com/sagarhani/og-image-generator). You can read more about the technical details in this [article](https://vnotes.pages.dev/og-image-generator/).
+[<img src="https://badges.ws/badge/status-beta-yellow" />](https://github.com/vladkens/ogp)
+[<img src="https://badges.ws/maintenance/yes/2025" />](https://github.com/vladkens/ogp)
+[<img src="https://badges.ws/github/license/vladkens/ogp" />](https://github.com/vladkens/ogp/blob/main/LICENSE)
+[<img src="https://badges.ws/badge/Build_with_Rust-000000?logo=rust" />](https://www.rust-lang.org)
+[<img src="https://badges.ws/badge/Hosted_on_Fly.io-24175B?logo=flydotio" />](https://fly.io)
+[<img src="https://badges.ws/badge/Buy_Me_a_Coffee-ff813f?icon=buymeacoffee" />](https://buymeacoffee.com/vladkens)
+
+OG Image Generator is a service designed to create [Open Graph](https://ogp.me/) images for your static pages. This project is inspired by [og-image-generator](https://github.com/sagarhani/og-image-generator). You can read more about the technical details in this [article](https://vladkens.cc/og-image-generator/).
 
 ## Usage
 
